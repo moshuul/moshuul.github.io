@@ -231,7 +231,7 @@ function updateControlledEllipse() {
     const topActive = height * 0.3;
     const bottomActive = height * 0.7;
 
-    let cyMapped = map(cy, topActive, bottomActive, -height * 0.15, height * 1.15);
+    let cyMapped = map(cy, topActive, bottomActive, -height * 0.15, height * 1.3);
 
     // 1) 围绕中心做伸缩：保持你原本“中段手感”
     const yReach = 1.28;   // 想更容易到底：1.28~1.38；想更稳：1.15~1.22

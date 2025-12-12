@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ink% · Spread</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+</head>
+
+<body>
+    <main class="frame">
+        <!-- NAVBAR -->
+        <nav class="navbar" aria-label="Primary">
+            <div class="brand">ink%</div>
+            <div class="center-nav">
+                <a href="#templates">Templates</a>
+                <a href="#about">About</a>
+                <!-- CHANGED: 给 Gallery 链接一个 id，后面 JS 用 -->
+                <a href="#" id="galleryLink">Gallery</a>
+            </div>
+            <!-- Publish: 用来把当前画面加入 Gallery “folder” -->
+            <a class="publish" href="#">Publish</a>
+        </nav>
+
+        <!-- LEFT CONTROLS -->
+        <aside class="left" aria-label="Controls" id="templates">
+            <label class="control-label" for="fontSlider">Font Size</label>
+            <input id="fontSlider" class="slider" type="range" min="8" max="72" value="18" />
+
+            <label class="control-label" for="waveSlider">Wave</label>
+            <input id="waveSlider" class="slider" type="range" min="0" max="50" value="4" />
+
+            <label class="control-label" for="blurSlider">Blur</label>
+            <input id="blurSlider" class="slider" type="range" min="0" max="50" value="0" />
+
+            <!-- Layout / Template 选择 -->
+            <span class="control-label">Layout</span>
+            <div class="layout-buttons">
+                <button type="button" class="layout-btn active" data-layout="spread">Spread</button>
+                <button type="button" class="layout-btn" data-layout="left">Left Page</button>
+                <button type="button" class="layout-btn" data-layout="right">Right Page</button>
+            </div>
+
+            <div class="actions">
+                <button id="saveBtn" type="button">Save</button>
+                <button id="downloadBtn" type="button">Download</button>
+                <button id="resetBtn" type="button">Reset</button>
+                <button id="mirrorBtn" type="button">Mirror: On</button>
+            </div>
+        </aside>
+
+        <!-- SPREAD -->
+        <section id="community" class="spread" aria-label="Book spread">
+            <!-- 画布容器：覆盖整个跨页 -->
+            <div id="canvasHost" class="canvas-host" aria-label="Canvas host"></div>
+
+            <!-- 左右页只是视觉结构 -->
+            <div class="page card left-page"></div>
+            <div class="page card right-page"></div>
+
+            <!-- Crease textures -->
+            <div class="crease layer-one" style="background-image:url('./flip_images/crease-multiply.png')"></div>
+            <div class="crease layer-two" style="background-image:url('./flip_images/crease-multiply.png')"></div>
+            <div class="crease layer-three" style="background-image:url('./flip_images/crease-screen.png')"></div>
+            <div class="crease layer-four" style="background-image:url('./flip_images/crease-screen.png')"></div>
+
+            <div class="crease-preload" aria-hidden="true">
+                <img src="./flip_images/crease-multiply.png" alt="" />
+                <img src="./flip_images/crease-screen.png" alt="" />
+            </div>
+        </section>
+
+        <!-- INFO PANEL（右侧：Title / Date + 文本输入，驱动画布文字） -->
+        <aside class="info" aria-labelledby="info-title" id="about">
+            <!-- NEW: Title 输入框 -->
+            <input id="titleInput" class="title-input" type="text" placeholder="Title" value="Title" />
+
+            <!-- NEW: Date 输入框，默认今天（由 JS 填充） -->
+            <input id="dateInput" class="date-input" type="date" />
+
+            <!-- 文本输入框：驱动画布上的文字 -->
+            <label class="control-label" for="textInput">Text</label>
+            <textarea id="textInput" class="desc-input"
+                rows="8">Taking myself to stages illuminated by varying lights and digital effects, I immersed myself in a dynamic landscape of artistic, technological, and entrepreneurial. Believing in design’s power to bridge science, technology, and business, I leveraged user experience principles, behavioral economics, and technological feasibility to create solutions that resonate both artistically and commercially, ensuring creativity translates into tangible value across industries.</textarea>
+        </aside>
+
+        <!-- 底部相册条：只保留 Preview，一排缩略图 -->
+        <section class="bottom-strip" aria-label="Preview">
+            <div class="preview-block">
+                <h3 class="panel-title">Preview</h3>
+                <div class="thumb-row" id="previewGrid"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">Mengshu Liu · @moshuu | 2025</footer>
+    </main>
+
+    <!-- NEW: Gallery 全屏页面 -->
+    <section id="galleryPage" class="gallery-page hidden" aria-label="Gallery view">
+        <header class="gallery-page-header">
+            <div class="gallery-brand">ink% · Gallery</div>
+            <button type="button" id="backFromGallery" class="back-btn">Back to editor</button>
+        </header>
+        <div class="gallery-page-grid" id="galleryGrid"></div>
+    </section>
+
+    <script src="sketch.js"></script>
+</body>
+
+</html>

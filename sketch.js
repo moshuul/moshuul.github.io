@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
     previewGrid = document.getElementById('previewGrid');
     galleryGrid = document.getElementById('galleryGrid');
 
-    // 默认 date = 今天
+    // default date = today
     if (dateInput) {
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Gallery 全屏视图开关
+    // Gallery
     if (galleryLink && galleryPage && frame && backFromGallery) {
         galleryLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Publish -> 加入 Gallery
+    // Publish -> add to Gallery
     if (publishLink) {
         publishLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 文本驱动画布文字
+    // text drive
     if (textInput) {
         paragraph = textInput.value || '';
         textArray = paragraph.split('');
@@ -199,7 +199,7 @@ function draw() {
 
     drawAllEllipses(time, time2);
 
-    // ----- DEBUG: 画出画布的边框看看 -----
+    // ----- DEBUG: view -----
     //stroke(255, 0, 0);
     //noFill();
     //rect(0, 0, width - 1, height - 1);
@@ -227,22 +227,22 @@ function updateControlledEllipse() {
     cx = mapLayoutX(cx);
 
     // ===== CHANGED START =====
-    // 保留你喜欢的原始“手感映射”（30%~70%）
+    // mapping（30%~70%）
     const topActive = height * 0.3;
     const bottomActive = height * 0.7;
 
     let cyMapped = map(cy, topActive, bottomActive, -height * 0.15, height * 1.3);
 
-    // 1) 围绕中心做伸缩：保持你原本“中段手感”
-    const yReach = 1.28;   // 想更容易到底：1.28~1.38；想更稳：1.15~1.22
+    // 1) 
+    const yReach = 1.28;   // if more：1.28~1.38； maybe??：1.15~1.22
     cyMapped = (cyMapped - height / 2) * yReach + height / 2;
 
-    // 2) 关键补齐：轻微向下平移，让“触底”真的发生（不改变中段比例）
-    const yBias = height * 0.20; // 可调：0.08~0.20（越大越容易到底）
+    // 2) offset
+    const yBias = height * 0.22; // 可调：0.08~0.20（越大越容易到底）
     cyMapped = cyMapped + yBias;
 
     cyMapped = constrain(cyMapped, 0, height);
-    // ===== CHANGED END =====
+
 
     ellipseX = lerp(ellipseX ?? cx, cx, 0.2);
     ellipseY = lerp(ellipseY ?? (cyMapped + yOffset), cyMapped + yOffset, 0.2);

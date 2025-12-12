@@ -234,7 +234,7 @@ function updateControlledEllipse() {
     let cyMapped = map(cy, topActive, bottomActive, -height * 0.15, height * 1.15);
 
     // 1) 围绕中心做伸缩：保持你原本“中段手感”
-    const yReach = 1.22;   // 想更容易到底：1.28~1.38；想更稳：1.15~1.22
+    const yReach = 1.28;   // 想更容易到底：1.28~1.38；想更稳：1.15~1.22
     cyMapped = (cyMapped - height / 2) * yReach + height / 2;
 
     // 2) 关键补齐：轻微向下平移，让“触底”真的发生（不改变中段比例）

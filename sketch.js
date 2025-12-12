@@ -200,9 +200,9 @@ function draw() {
     drawAllEllipses(time, time2);
 
     // ----- DEBUG: 画出画布的边框看看 -----
-    stroke(255, 0, 0);
-    noFill();
-    rect(0, 0, width - 1, height - 1);
+    //stroke(255, 0, 0);
+    //noFill();
+    //rect(0, 0, width - 1, height - 1);
 }
 
 // X 布局映射：spread / left / right
